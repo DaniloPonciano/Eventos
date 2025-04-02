@@ -26,22 +26,25 @@ public class CidadeSpec {
     @Autowired
     private CidadeRepository cidadeRepository;
 
-    public void verificarSeCidadeENula(Cidade cidade){
+    public Cidade verificarSeCidadeENula(Cidade cidade){
         if (isNull(cidade)){
             throw new BussinessExceptions(String.format(MSG_CIDADE_NULA, cidade.getNome()));
         }
+        return cidade;
     }
 
-    public void verificarSeExisteCidadeComNomeDuplicado(Cidade cidade){
+    public Cidade verificarSeExisteCidadeComNomeDuplicado(Cidade cidade){
         if (nonNull(cidade)){
             throw new BussinessExceptions(String.format(MSG_CIDADE_DUPLICADA, cidade.getNome()));
         }
+        return cidade;
     }
 
-    public void verificarSeNomeCidadeEValido(Cidade cidade){
+    public Cidade verificarSeNomeCidadeEValido(Cidade cidade){
         if (nonNull(cidade) && !PATTERN_NOME_VALIDO.matcher(cidade.getNome()).matches()){
             throw new BussinessExceptions(String.format(MSG_CIDADE_INVALIDA, cidade.getNome()));
         }
+        return cidade;
     }
 
     public Cidade nomeCidadeFormatado(Cidade cidade){
