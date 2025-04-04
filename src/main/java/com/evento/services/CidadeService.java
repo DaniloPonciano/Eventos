@@ -20,11 +20,9 @@ public class CidadeService {
     @Autowired
     private CidadeSpec cidadeSpec;
 
-    public CidadeDTO buscarCidadePorNome(CidadeDTO cidadeDTO){
-        Cidade cidade = converterCidadeDTOParaCidade(cidadeDTO);
-        cidade = cidadeSpec.verificarSeCidadeENula(cidade);
-        cidade = cidadeSpec.verificarSeNomeCidadeEValido(cidade);
-        cidade = cidadeSpec.verificarSeExisteCidadeComNomeDuplicado(cidade);
+    public CidadeDTO buscarCidadePorNome(String nome){
+        Cidade cidade = cidadeRepository.findByNome(nome).orElseThrow(() ->
+                new BussinessExceptions("Cidade não encontrada"));
 
         return converterCidadeParaCidadeDTO(cidade);
     }
